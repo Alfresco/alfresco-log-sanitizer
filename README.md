@@ -1,0 +1,1 @@
+# alfresco-log-sanitizer
