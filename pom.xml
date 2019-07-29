@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>alfresco-log-sanitizer</artifactId>
+    <name>Alfresco Log Sanitizer</name>
+    <version>0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <parent>
+        <groupId>org.alfresco</groupId>
+        <artifactId>alfresco-super-pom</artifactId>
+        <version>10</version>
+    </parent>
+
+    <scm>
+        <connection>scm:git:https://github.com/Alfresco/alfresco-log-sanitizer.git</connection>
+        <developerConnection>scm:git:https://github.com/Alfresco/alfresco-log-sanitizer.git</developerConnection>
+        <url>https://github.com/Alfresco/alfresco-log-sanitizer</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>alfresco-public</id>
+            <url>https://artifacts.alfresco.com/nexus/content/repositories/releases</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <licenseName>community</licenseName>
+        <maven.build.sourceVersion>11</maven.build.sourceVersion>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <configuration>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <tagNameFormat>@{project.version}</tagNameFormat>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <configuration>
+                    <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+                    <organizationName>Alfresco Software Limited</organizationName>
+                    <failOnMissingHeader>true</failOnMissingHeader>
+                    <failOnNotUptodateHeader>true</failOnNotUptodateHeader>
+                    <licenseResolver>classpath://alfresco</licenseResolver>
+                    <licenseName>${licenseName}</licenseName>
+                    <roots>
+                        <root>src</root>
+                    </roots>
+                    <includes>
+                        <include>**/*.java</include>
+                        <include>**/*.jsp</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>check-licenses</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>check-file-header</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.alfresco</groupId>
+                        <artifactId>alfresco-license-headers</artifactId>
+                        <version>1.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
