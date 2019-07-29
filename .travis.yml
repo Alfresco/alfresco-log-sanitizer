@@ -25,7 +25,8 @@ jobs:
   include:
     - stage: test
       name: "Build and test"
-        script: travis_retry mvn clean install
+      script:
+        - travis_retry mvn clean install
     - stage: release
       name: "Push to Nexus"
       if: fork = false AND (branch = master OR branch =~ /support\/.*/) AND type != pull_request AND commit_message !~ /\[no-release\]/
